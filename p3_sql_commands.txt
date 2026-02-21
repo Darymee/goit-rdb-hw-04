@@ -1,4 +1,4 @@
-– 1. JOIN всіх таблиць (завдання 3) 
+–- 1. JOIN всіх таблиць (завдання 3) --
 
 SELECT
     od.id AS order_detail_id,

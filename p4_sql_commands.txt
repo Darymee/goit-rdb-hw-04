@@ -1,4 +1,4 @@
--– 1) Перевірка кількості рядків 
+-– 1) Перевірка кількості рядків --
 SELECT COUNT(*) FROM (
     SELECT od.id FROM order_details od 
     INNER JOIN orders o ON od.order_id = o.id 
@@ -9,17 +9,21 @@ SELECT COUNT(*) FROM (
     INNER JOIN shippers sh ON o.shipper_id = sh.id 
     INNER JOIN suppliers sup ON	p.supplier_id = sup.id ) t;
 
+***
  Відповідь: 518   
+***
 
-–- 2) Приклад LEFT JOIN (щоб побачити різницю) 
+–- 2) Приклад LEFT JOIN (щоб побачити різницю) --
 SELECT COUNT(*) FROM customers c 
 LEFT JOIN orders o ON o.customer_id = c.id
 LEFT JOIN order_details od ON od.order_id = o.id;
 
+***
 Відповідь: (було 518 → стало 535) - бо є 17 клієнтів без замовлень: 
 LEFT JOIN їх залишає, а поля правих таблиць стають NULL.
+***
 
-–- 3) Фільтр по employee_id 
+–- 3) Фільтр по employee_id --
 SELECT * FROM ( 
     SELECT od.id AS order_detail_id, o.employee_id, cat.name AS category_name, od.quantity
     FROM order_details od 
@@ -28,7 +32,7 @@ SELECT * FROM (
     INNER JOIN categories cat ON p.category_id = cat.id) t 
 WHERE employee_id > 3 AND employee_id <= 10;
 
-–- 4) Групування
+–- 4) Групування --
 SELECT
     cat.name AS category_name,
     COUNT(*) AS row_count,
@@ -38,7 +42,7 @@ INNER JOIN products p     ON od.product_id = p.id
 INNER JOIN categories cat ON p.category_id = cat.id
 GROUP BY cat.name;
 
--- 5) Отфільтровані рядки, де середня кількість товару більша за 21
+-- 5) Отфільтровані рядки, де середня кількість товару більша за 21 --
 SELECT
     cat.name AS category_name,
     COUNT(*) AS row_count,
@@ -49,7 +53,7 @@ INNER JOIN categories cat ON p.category_id = cat.id
 GROUP BY cat.name
 HAVING AVG(od.quantity) > 21;
 
--- 6) Відсортовані рядки за спаданням кількості рядків
+-- 6) Відсортовані рядки за спаданням кількості рядків --
 SELECT
     cat.name AS category_name,
     COUNT(*) AS row_count,
@@ -61,7 +65,7 @@ GROUP BY cat.name
 HAVING AVG(od.quantity) > 21
 ORDER BY row_count DESC;
 
--- 7) Чотири рядки з пропущеним першим рядком.
+-- 7) Чотири рядки з пропущеним першим рядком --
 SELECT
     cat.name AS category_name,
     COUNT(*) AS row_count,
